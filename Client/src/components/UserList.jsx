@@ -13,7 +13,7 @@ const UserList = () => {
       .then((data) => {
         setUsers(data);
         data.forEach((user) => {
-          fetch(`https://cointab-nkqh.onrender.com/checkUser/${user.id}`)
+          fetch(`https://handsome-cyan-goat.cyclic.app/checkUser/${user.id}`)
             .then((response) => response.json())
             .then((result) => {
               setUsers((prevUsers) =>
@@ -30,7 +30,7 @@ const UserList = () => {
 
   const handleAddPost = (user) => {
     // Make a request to save user details in the cointabuser table
-    fetch('https://cointab-nkqh.onrender.com/addUser', {
+    fetch('https://handsome-cyan-goat.cyclic.app/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -14,7 +14,7 @@ const UserPosts = () => {
       .then((data) => {
         // Create an array of promises for checking post presence
         const checkPresencePromises = data.map((post) =>
-          fetch(`https://cointab-nkqh.onrender.com/checkPost/${userId}/${post.id}`)
+          fetch(`https://handsome-cyan-goat.cyclic.app/checkPost/${userId}/${post.id}`)
             .then((response) => response.json())
             .then((result) => result)
             .catch((error) =>
@@ -48,7 +48,7 @@ const UserPosts = () => {
 
     // If there are posts to add, make the bulk add request
     if (postsToAdd.length > 0) {
-      fetch(`https://cointab-nkqh.onrender.com/bulkAddPosts/${userId}`, {
+      fetch(`https://handsome-cyan-goat.cyclic.app/bulkAddPosts/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const UserPosts = () => {
     // Function to handle download in Excel
     const handleDownloadExcel = () => {
       // Make a GET request to the backend route for downloading Excel
-      fetch(`https://cointab-nkqh.onrender.com/downloadExcel/${userId}`)
+      fetch(`https://handsome-cyan-goat.cyclic.app/downloadExcel/${userId}`)
         .then((response) => response.blob())
         .then((blob) => {
           // Create a URL for the blob
