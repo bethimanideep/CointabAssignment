@@ -13,7 +13,7 @@ const UserList = () => {
       .then((data) => {
         setUsers(data);
         data.forEach((user) => {
-          fetch(`http://localhost:4000/checkUser/${user.id}`)
+          fetch(`https://cointab-nkqh.onrender.com/checkUser/${user.id}`)
             .then((response) => response.json())
             .then((result) => {
               setUsers((prevUsers) =>
@@ -30,7 +30,7 @@ const UserList = () => {
 
   const handleAddPost = (user) => {
     // Make a request to save user details in the cointabuser table
-    fetch('http://localhost:4000/addUser', {
+    fetch('https://cointab-nkqh.onrender.com/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const UserList = () => {
             <p>City: {user.address.city}</p>
             <p>Company: {user.company.name}</p>
             {user.isPresent ? (
-              <Link to={`/userPosts/${user.id}`}>
+              <Link to={`/userPosts/${user.id}/${user.company.name}`}>
                 <button>Open</button>
               </Link>
             ) : (

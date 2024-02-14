@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const UserPosts = () => {
-  const { userId } = useParams();
+  const { userId ,company} = useParams();
+  console.log(userId,company);
   const [posts, setPosts] = useState([]);
   const [showBulkAdd, setShowBulkAdd] = useState(false);
 
@@ -13,7 +14,7 @@ const UserPosts = () => {
       .then((data) => {
         // Create an array of promises for checking post presence
         const checkPresencePromises = data.map((post) =>
-          fetch(`http://localhost:4000/checkPost/${userId}/${post.id}`)
+          fetch(`https://cointab-nkqh.onrender.com/checkPost/${userId}/${post.id}`)
             .then((response) => response.json())
             .then((result) => result)
             .catch((error) =>
@@ -47,7 +48,7 @@ const UserPosts = () => {
 
     // If there are posts to add, make the bulk add request
     if (postsToAdd.length > 0) {
-      fetch(`http://localhost:4000/bulkAddPosts/${userId}`, {
+      fetch(`https://cointab-nkqh.onrender.com/bulkAddPosts/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ const UserPosts = () => {
     // Function to handle download in Excel
     const handleDownloadExcel = () => {
       // Make a GET request to the backend route for downloading Excel
-      fetch(`http://localhost:4000/downloadExcel/${userId}`)
+      fetch(`https://cointab-nkqh.onrender.com/downloadExcel/${userId}`)
         .then((response) => response.blob())
         .then((blob) => {
           // Create a URL for the blob
@@ -135,7 +136,7 @@ const UserPosts = () => {
             <h3>Name: {post.userId}</h3>
             <h3>Title: {post.title}</h3>
             <p>Body: {post.body}</p>
-            <p>Company: {post.company}</p>
+            <p>Company: {company}</p>
           </div>
         ))}
       </div>
