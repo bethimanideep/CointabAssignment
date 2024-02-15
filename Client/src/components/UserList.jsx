@@ -1,11 +1,10 @@
 // src/components/UserList.js
 import React, { useState, useEffect } from 'react';
-import { Link, Routes, Route, useNavigate } from 'react-router-dom';
-import UserPosts from './UserPosts';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -47,15 +46,17 @@ const UserList = () => {
             prevUser.id === user.id ? { ...prevUser, isPresent: result.isPresent } : prevUser
           )
         );
+        Swal.fire({
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        }); 
       })
       .catch((error) => console.error(`Error adding user for ${user.id}:`, error));
   };
 
-  const handleOpenPosts = (userId) => {
-    // Use the navigate function from useNavigate
-    navigate(`/user/${userId}`);
-  };
-
+ 
   return (
     <div className="user-list-container">
       <h1>Cointab SE-ASSIGNMENT</h1>

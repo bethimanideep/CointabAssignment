@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const UserPosts = () => {
-  const { userId ,company} = useParams();
-  console.log(userId,company);
+  const { userId, company } = useParams();
   const [posts, setPosts] = useState([]);
   const [showBulkAdd, setShowBulkAdd] = useState(false);
 
@@ -25,7 +25,6 @@ const UserPosts = () => {
         // Wait for all promises to resolve
         Promise.all(checkPresencePromises)
           .then((results) => {
-            console.log(results);
             // Update the posts with isPresent property
             const updatedPosts = data.map((post, index) => ({
               ...post,
@@ -44,7 +43,6 @@ const UserPosts = () => {
   const handleBulkAdd = () => {
     // Filter out posts that are already present in the database
     const postsToAdd = posts.filter((post) => !post.isPresent);
-    console.log(postsToAdd);
 
     // If there are posts to add, make the bulk add request
     if (postsToAdd.length > 0) {
@@ -59,8 +57,13 @@ const UserPosts = () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          // Handle the result if needed
-          // Update the local state to trigger a re-render
+          Swal.fire({
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           setPosts((prevPosts) =>
             prevPosts.map((prevPost) =>
               postsToAdd.some((addedPost) => addedPost.id === prevPost.id)
@@ -68,51 +71,47 @@ const UserPosts = () => {
                 : prevPost
             )
           );
+          
         })
         .catch((error) => console.error('Error bulk adding posts:', error));
     }
   };
 
 
+  const handleDownloadExcel = () => {
+    
+    // Make a GET request to the backend route for downloading Excel
+    fetch(`https://lavender-ox-tux.cyclic.app/downloadExcel/${userId}`)
+      .then((response) => response.blob())
+      .then((blob) => {
+        Swal.fire({
+          icon: "success",
+          title: "File Downloaded",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(new Blob([blob]));
 
+        // Create a link element
+        const link = document.createElement('a');
+        link.href = url;
 
+        // Set the filename for the download
+        link.setAttribute('download', `posts_${userId}.xlsx`);
 
+        // Append the link to the body
+        document.body.appendChild(link);
 
+        // Trigger a click on the link to start the download
+        link.click();
 
-
-
-
-
-
-
-
-    // Function to handle download in Excel
-    const handleDownloadExcel = () => {
-      // Make a GET request to the backend route for downloading Excel
-      fetch(`https://lavender-ox-tux.cyclic.app/downloadExcel/${userId}`)
-        .then((response) => response.blob())
-        .then((blob) => {
-          // Create a URL for the blob
-          const url = window.URL.createObjectURL(new Blob([blob]));
-          
-          // Create a link element
-          const link = document.createElement('a');
-          link.href = url;
-          
-          // Set the filename for the download
-          link.setAttribute('download', `posts_${userId}.xlsx`);
-          
-          // Append the link to the body
-          document.body.appendChild(link);
-          
-          // Trigger a click on the link to start the download
-          link.click();
-          
-          // Remove the link from the body
-          document.body.removeChild(link);
-        })
-        .catch((error) => console.error('Error downloading Excel:', error));
-    };
+        // Remove the link from the body
+        document.body.removeChild(link);
+        
+      })
+      .catch((error) => console.error('Error downloading Excel:', error));
+  };
 
   // Use useEffect to update the button state after bulk addition
   useEffect(() => {
