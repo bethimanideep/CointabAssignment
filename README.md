@@ -6,7 +6,7 @@ This is a simple 2-page website using Node.js and SQL database.
 #-[Live Frontend](https://cointab-assignment-alpha.vercel.app/) 
 
 ### Backend Deploy
-#-[Live Backend](https://dull-ruby-dugong-cap.cyclic.app)
+#-[Live Backend](https://dull-ruby-dugong-cap.cyclic.app/)
 
 ### Watch Video
 #-[Watch Video](https://drive.google.com/file/d/19FR_sYG3Tdh1DZmwzXkE_AEDCOLfsuUB/view?usp=sharing)
