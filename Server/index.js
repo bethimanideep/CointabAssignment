@@ -9,19 +9,17 @@ app.use(cors())
 app.use(express.json())
 
 
-
 // Routes
 app.get('/', (req, res) => {
     res.send('Hello, this is your Node.js Express server with Sequelize and PostgreSQL!');
 });
 
-
-// Assuming you have a route to check if a user is present in your database
 app.get('/checkUser/:userId', async (req, res) => {
     try {
+        await checkTableExistence();
+
         const userId = req.params.userId;
 
-        // Check if the user with the given userId exists in the UsersCointab table
         const user = await UsersCointabs.findOne({
             where: {
                 id: userId,
@@ -38,20 +36,10 @@ app.get('/checkUser/:userId', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/checkPost/:userId/:postId', async (req, res) => {
+
     try {
+        await checkTableExistence();
         const userId = req.params.userId;
         const postId = req.params.postId;
 
@@ -77,6 +65,8 @@ app.get('/checkPost/:userId/:postId', async (req, res) => {
 // Route to bulk add posts for a user
 app.post('/bulkAddPosts/:userId', async (req, res) => {
     try {
+        await checkTableExistence();
+
         const userId = req.params.userId;
         const postsData = req.body.posts;
         const user = await UsersCointabs.findByPk(userId);
@@ -101,21 +91,10 @@ app.post('/bulkAddPosts/:userId', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/downloadExcel/:userId', async (req, res) => {
     try {
+        await checkTableExistence();
+
         const userId = req.params.userId;
 
         // Fetch all posts for the specified userId
@@ -172,37 +151,10 @@ app.get('/downloadExcel/:userId', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.post('/addUser', async (req, res) => {
     try {
+        await checkTableExistence();
+
         const { user } = req.body;
 
         // Check if the user with the given userId already exists
@@ -235,6 +187,17 @@ app.post('/addUser', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+
+async function checkTableExistence() {
+  try {
+    await sequelize.sync(); // This will create the tables if they don't exist
+    console.log('Tables are in sync');
+  } catch (error) {
+    console.error('Error syncing tables:', error);
+  }
+}
 
 
 
