@@ -6,7 +6,13 @@ This is a simple 2-page website using Node.js and SQL database.
 #-[Live Frontend](https://cointab-assignment-alpha.vercel.app/) 
 
 ### Backend Deploy
-#-[Live Backend](https://lavender-ox-tux.cyclic.app/)    
+
+=======
+#-[Live Backend](https://handsome-cyan-goat.cyclic.app/)
+
+### Watch Video
+#-[Watch Video](https://drive.google.com/file/d/19FR_sYG3Tdh1DZmwzXkE_AEDCOLfsuUB/view?usp=sharing)
+>>>>>>> 1614d45066192b35e27929a972dd90ce7e68baaa
 
 ## Clone Repository
    ```bash
