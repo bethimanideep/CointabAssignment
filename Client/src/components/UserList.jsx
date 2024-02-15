@@ -12,7 +12,7 @@ const UserList = () => {
       .then((data) => {
         setUsers(data);
         data.forEach((user) => {
-          fetch(`https://lavender-ox-tux.cyclic.app/checkUser/${user.id}`)
+          fetch(`https://dull-ruby-dugong-cap.cyclic.appcheckUser/${user.id}`)
             .then((response) => response.json())
             .then((result) => {
               setUsers((prevUsers) =>
@@ -29,7 +29,7 @@ const UserList = () => {
 
   const handleAddPost = (user) => {
     // Make a request to save user details in the cointabuser table
-    fetch('https://lavender-ox-tux.cyclic.app/addUser', {
+    fetch('https://dull-ruby-dugong-cap.cyclic.appaddUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
