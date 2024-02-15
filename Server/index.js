@@ -193,7 +193,7 @@ app.post('/addUser', async (req, res) => {
 async function checkTableExistence() {
   try {
     await sequelize.sync(); // This will create the tables if they don't exist
-    console.log('Tables are in sync');
+
   } catch (error) {
     console.error('Error syncing tables:', error);
   }
