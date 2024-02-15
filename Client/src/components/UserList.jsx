@@ -13,7 +13,7 @@ const UserList = () => {
       .then((data) => {
         setUsers(data);
         data.forEach((user) => {
-          fetch(`https://handsome-cyan-goat.cyclic.app/checkUser/${user.id}`)
+          fetch(`https://lavender-ox-tux.cyclic.app/checkUser/${user.id}`)
             .then((response) => response.json())
             .then((result) => {
               setUsers((prevUsers) =>
@@ -30,7 +30,7 @@ const UserList = () => {
 
   const handleAddPost = (user) => {
     // Make a request to save user details in the cointabuser table
-    fetch('https://handsome-cyan-goat.cyclic.app/addUser', {
+    fetch('https://lavender-ox-tux.cyclic.app/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
