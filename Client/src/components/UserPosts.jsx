@@ -14,7 +14,7 @@ const UserPosts = () => {
       .then((data) => {
         // Create an array of promises for checking post presence
         const checkPresencePromises = data.map((post) =>
-          fetch(`https://dull-ruby-dugong-cap.cyclic.app/checkPost/${userId}/${post.id}`)
+          fetch(`https://gorgeous-outfit-fawn.cyclic.app/checkPost/${userId}/${post.id}`)
             .then((response) => response.json())
             .then((result) => result)
             .catch((error) =>
@@ -46,7 +46,7 @@ const UserPosts = () => {
 
     // If there are posts to add, make the bulk add request
     if (postsToAdd.length > 0) {
-      fetch(`https://dull-ruby-dugong-cap.cyclic.app/bulkAddPosts/${userId}`, {
+      fetch(`https://gorgeous-outfit-fawn.cyclic.app/bulkAddPosts/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const UserPosts = () => {
   const handleDownloadExcel = () => {
     
     // Make a GET request to the backend route for downloading Excel
-    fetch(`https://dull-ruby-dugong-cap.cyclic.app/downloadExcel/${userId}`)
+    fetch(`https://gorgeous-outfit-fawn.cyclic.app/downloadExcel/${userId}`)
       .then((response) => response.blob())
       .then((blob) => {
         Swal.fire({

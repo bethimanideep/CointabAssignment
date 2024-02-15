@@ -12,7 +12,7 @@ const UserList = () => {
       .then((data) => {
         setUsers(data);
         data.forEach((user) => {
-          fetch(`https://dull-ruby-dugong-cap.cyclic.app/checkUser/${user.id}`)
+          fetch(`https://gorgeous-outfit-fawn.cyclic.app/checkUser/${user.id}`)
             .then((response) => response.json())
             .then((result) => {
               setUsers((prevUsers) =>
@@ -29,7 +29,7 @@ const UserList = () => {
 
   const handleAddPost = (user) => {
     // Make a request to save user details in the cointabuser table
-    fetch('https://dull-ruby-dugong-cap.cyclic.app/addUser', {
+    fetch('https://gorgeous-outfit-fawn.cyclic.app/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
