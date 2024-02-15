@@ -204,7 +204,7 @@ async function checkTableExistence() {
 // Sync Sequelize models with the database and start the server
 sequelize.sync({ force: false }) // Set force to true to drop tables and recreate on every server start
     .then(() => {
-        app.listen(4000, () => {
+        app.listen(3000, () => {
             console.log(`Server is running on port 4000`);
         });
     })
