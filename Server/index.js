@@ -8,7 +8,6 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
-const PORT = process.env.PORT || 4000;
 
 
 // Routes
@@ -55,7 +54,6 @@ app.get('/checkPost/:userId/:postId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const postId = req.params.postId;
-        console.log(userId, postId);
 
         const post = await Posts.findOne({
             where: {
@@ -64,7 +62,6 @@ app.get('/checkPost/:userId/:postId', async (req, res) => {
             },
         });
 
-        console.log(post);
         if (post) {
 
             res.json({ isPresent: true });
@@ -82,9 +79,7 @@ app.post('/bulkAddPosts/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
         const postsData = req.body.posts;
-        console.log(postsData);
         const user = await UsersCointabs.findByPk(userId);
-        console.log(user);
         if (user) {
             const createdPosts = await Posts.bulkCreate(
                 postsData.map((post) => ({
@@ -95,7 +90,6 @@ app.post('/bulkAddPosts/:userId', async (req, res) => {
                 }))
             );
 
-            console.log("completedsaving");
             res.json({ success: true, createdPosts });
         } else {
             res.status(404).json({ error: 'User not found' });
@@ -147,7 +141,6 @@ app.get('/downloadExcel/:userId', async (req, res) => {
 
 
         // Add data to the worksheet
-        console.log([posts]);
         posts.forEach((post) => {
             worksheet.addRow({
                 title: post.Title,
@@ -211,7 +204,6 @@ app.get('/downloadExcel/:userId', async (req, res) => {
 app.post('/addUser', async (req, res) => {
     try {
         const { user } = req.body;
-        console.log(user);
 
         // Check if the user with the given userId already exists
         const existingUser = await UsersCointabs.findOne({
@@ -249,8 +241,8 @@ app.post('/addUser', async (req, res) => {
 // Sync Sequelize models with the database and start the server
 sequelize.sync({ force: false }) // Set force to true to drop tables and recreate on every server start
     .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+        app.listen(4000, () => {
+            console.log(`Server is running on port 4000`);
         });
     })
     .catch((err) => {
